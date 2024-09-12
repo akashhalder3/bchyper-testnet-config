@@ -67,3 +67,8 @@ echo "Step 6: Initializing BC Hyper testnet..."
 $BC_EXEC_FILE --datadir $HOME/.bchyper init
 
 echo "BC Hyper Chain testnet initialization complete!"
+
+# Step 7: Get and print the public IP of the system
+echo "Step 7: Fetching public IP address..."
+PUBLIC_IP=$(curl -s ifconfig.me)
+echo "Public IP Address: $PUBLIC_IP"
