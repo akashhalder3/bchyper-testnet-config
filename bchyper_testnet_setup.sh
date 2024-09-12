@@ -62,4 +62,8 @@ mv $CONFIG_FILE $HOME/.bchyper/
 
 echo "Testnet config file moved to .bchyper directory."
 
-echo "BC Hyper Chain installation and configuration complete!"
+# Step 6: Initialize BC Hyper testnet
+echo "Step 6: Initializing BC Hyper testnet..."
+$BC_EXEC_FILE --datadir $HOME/.bchyper init
+
+echo "BC Hyper Chain testnet initialization complete!"
