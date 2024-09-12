@@ -72,3 +72,40 @@ echo "BC Hyper Chain testnet initialization complete!"
 echo "Step 7: Fetching public IP address..."
 PUBLIC_IP=$(curl -s ifconfig.me)
 echo "Public IP Address: $PUBLIC_IP"
+
+# Step 8: Get the OS username and store it in a variable
+echo "Step 8: Getting the OS username..."
+os_username=$(whoami)
+echo "OS Username: $os_username"
+
+# Step 9: Create a systemd service file for BC Hyper Chain
+echo "Step 9: Creating systemd service file..."
+
+SERVICE_FILE="/lib/systemd/system/bchyper.service"
+sudo bash -c "cat > $SERVICE_FILE" <<EOL
+[Unit]
+Description=BC Hyper Chain client
+After=syslog.target network.target
+
+[Service]
+User=$os_username
+Group=$os_username
+Type=simple
+ExecStart=$BC_EXEC_FILE --datadir $HOME/.bchyper --config $HOME/.bchyper/$CONFIG_FILE --gcmode "archive" --syncmode "full" --rpcvhosts "*" --http.corsdomain "*" --nat extip:$PUBLIC_IP
+KillMode=process
+KillSignal=SIGINT
+TimeoutStopSec=90
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Step 10: Reload systemd and enable the bchyper service
+echo "Step 10: Enabling BC Hyper Chain service..."
+sudo systemctl daemon-reload
+sudo systemctl enable bchyper.service
+sudo systemctl start bchyper.service
+
+echo "BC Hyper Chain installation, configuration, and service setup complete!"
