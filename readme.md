@@ -1,4 +1,4 @@
-Certainly! Here is a comprehensive documentation on how a user can run the `bchyper_testnet_setup.sh` file to easily set up a BC Hyper Chain RPC node.
+Here is a comprehensive documentation on how a user can run the `bchyper_testnet_setup.sh` file to easily set up a BC Hyper Chain RPC node.
 
 ---
 
