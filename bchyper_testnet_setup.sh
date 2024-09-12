@@ -1,16 +1,5 @@
 #!/bin/bash
 
-# Helper function for animations
-loading_animation() {
-    chars="/-\|"
-    while :; do
-        for (( i=0; i<${#chars}; i++ )); do
-            echo -en "${chars:$i:1}" "\r"
-            sleep 0.2
-        done
-    done
-}
-
 # Step 1: Install Go 1.22.3 🚀
 echo "🔧 Step 1: Installing Go 1.22.3..."
 GO_VERSION="go1.22.3.linux-amd64.tar.gz"
@@ -18,11 +7,7 @@ GO_URL="https://go.dev/dl/$GO_VERSION"
 
 # Download Go
 echo "⬇️ Downloading Go version 1.22.3..."
-wget $GO_URL &> /dev/null &
-loading_animation &
-pid=$!
-wait $pid
-kill $! 2> /dev/null
+wget $GO_URL
 
 # Remove any existing Go installation
 echo "🧹 Removing previous Go installation (if any)..."
@@ -56,11 +41,7 @@ BC_EXEC_URL="https://drive.google.com/uc?export=download&id=1u2uUhKnyAagSSa0kaQ8
 BC_EXEC_FILE="bc-hyper-chain-exec"
 
 # Download the BC Hyper Chain execution file
-wget --no-check-certificate "$BC_EXEC_URL" -O $BC_EXEC_FILE &> /dev/null &
-loading_animation &
-pid=$!
-wait $pid
-kill $! 2> /dev/null
+wget --no-check-certificate "$BC_EXEC_URL" -O $BC_EXEC_FILE
 
 # Make the execution file executable
 chmod +x $BC_EXEC_FILE
@@ -75,11 +56,7 @@ CONFIG_URL="https://raw.githubusercontent.com/akashhalder3/bchyper-testnet-confi
 CONFIG_FILE="testnetconfig.toml"
 
 # Download the testnet config file
-wget "$CONFIG_URL" -O $CONFIG_FILE &> /dev/null &
-loading_animation &
-pid=$!
-wait $pid
-kill $! 2> /dev/null
+wget "$CONFIG_URL" -O $CONFIG_FILE
 
 # Move the config file to the .bchyper directory
 mv $CONFIG_FILE $HOME/.bchyper/
